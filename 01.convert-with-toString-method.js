@@ -1,4 +1,3 @@
-Vahagn
 const employees = [
     {
         "firstName": "Arabela",
