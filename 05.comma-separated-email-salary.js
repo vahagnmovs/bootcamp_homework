@@ -81,13 +81,25 @@ const employees = [
     }
 ]
 
-//TASK 4
+// TASK 5
 // Create a function that is receiving a collection of employees and returns a string
-// containing emails in the following format
-// email1@example.com//email2@example.com//email3@example.com
+// with comma-separated email: salary
 
-function separateEmails(employees) {
-    return employees.map(employee => employee.email).join('//')
+function transferSalaryWithComma(array) {
+    let obj = {};
+    let string = '';
+    for (let idx = 0; idx < array.length; idx++) {
+        if (idx === array.length - 1) {
+            obj[array[idx].email] = array[idx].salary
+            string += `${Object.keys(obj)}: ${Object.values(obj)}`
+            obj = {};
+        } else {
+            obj[array[idx].email] = array[idx].salary
+            string += `${Object.keys(obj)}: ${Object.values(obj)}, `
+            obj = {};
+        }
+    }
+    return string;
 }
 
-console.log(separateEmails(employees))
+console.log(transferSalaryWithComma(employees))
