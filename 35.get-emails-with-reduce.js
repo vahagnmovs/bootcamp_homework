@@ -81,11 +81,13 @@ const employees = [
     }
 ]
 
-// TASK 34
-// Using reduce write a function that returns the total salary of all employees
+// TASK 35
+// Using reduce create a function that is receiving a collection of employees and returns a string
+// containing emails in the following format
+// email1@example.com//email2@example.com//email3@example.com
 
-function getTotalSalary(array) {
-    return array.reduce((sum, currentValue) => sum + Number(currentValue.salary.split('$')[1]), 0);
+function getEmails(array) {
+    return array.reduce((sum, currentValue) => sum + '//' + currentValue.email, array[0].email);
 }
 
-console.log(getTotalSalary(employees))
+console.log(getEmails(employees))
