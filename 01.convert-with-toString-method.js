@@ -86,6 +86,7 @@ const employees = [
 // employees and using toString() returns a string with comma-separated full names
 // Porty Simoni, Roderick MacPeake, Lina Doige, ...
 
+
 function transferEmployeesWithComma(employees) {
     return employees.map(employee => employee.firstName + ' ' + employee.lastName).toString()
 }
