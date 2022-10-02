@@ -7,7 +7,7 @@ class InputMaximum extends Component {
         return (
             <div className={'input-piece'}>
                 <label htmlFor="maximum">Maximum</label>
-                <input id='maximum' placeholder = 'set maximum...'
+                <input defaultValue={ localStorage.getItem('maximum') || '' } id='maximum' placeholder = 'set maximum...'
                        onChange={ e => setMaximum(e) } type="number"/>
             </div>
         );

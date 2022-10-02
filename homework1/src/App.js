@@ -9,45 +9,46 @@ class App extends Component {
         super(props);
 
         this.state = {
-            count: 0,
-            isDecreaseButtonDisabled: true,
-            isIncreaseButtonDisabled: false,
-            maximum: 10,
-            minimum: 0,
-            step: 1,
+            count: Number(localStorage.getItem('count')),
+            isDecreaseButtonDisabled: JSON.parse(localStorage.getItem('isDecreaseButtonDisabled')),
+            isIncreaseButtonDisabled: JSON.parse(localStorage.getItem('isIncreaseButtonDisabled')),
+            maximum: Number(localStorage.getItem('maximum')) || 10,
+            minimum: Number(localStorage.getItem('minimum')),
+            step: Number(localStorage.getItem('step')) || 1
         }
 
-        this.Settings = {
-            maximum: 10,
-            minimum: 0,
-            step: 1
-        }
+    }
 
-
+    componentDidMount() {
+        localStorage.setItem('isDecreaseButtonDisabled', JSON.stringify(true))
+        localStorage.setItem('isIncreaseButtonDisabled', JSON.stringify(false))
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
 
-
-        const { count, maximum, minimum, step } = this.state;
+        const { count, step, minimum, maximum } = this.state;
 
         if ( prevState.count !== count ) {
+            localStorage.setItem('count', count)
             if (count + step > maximum) {
                 this.setState({
                     isIncreaseButtonDisabled: true,
                 })
+                localStorage.setItem('isIncreaseButtonDisabled', JSON.stringify(true))
             }
 
             if ( count === minimum ) {
                 this.setState({
                     isDecreaseButtonDisabled: true,
                 })
+                localStorage.setItem('isDecreaseButtonDisabled', JSON.stringify(true))
             }
 
             if ( count === maximum ) {
                 this.setState({
                     isIncreaseButtonDisabled: true,
                 })
+                localStorage.setItem('isIncreaseButtonDisabled', JSON.stringify(true))
             }
         }
     }
@@ -59,6 +60,7 @@ class App extends Component {
             count: count + step,
             isDecreaseButtonDisabled: false,
         })
+        localStorage.setItem('isDecreaseButtonDisabled', JSON.stringify(false))
     }
 
     decreaseCount = () => {
@@ -68,45 +70,41 @@ class App extends Component {
             count: count - step,
             isIncreaseButtonDisabled: false,
         })
+        localStorage.setItem('isIncreaseButtonDisabled', JSON.stringify(false))
     }
 
     resetCount = () => {
         this.form = document.getElementById('myForm');
+        localStorage.clear();
         this.form.reset();
-        this.Settings = {
-            maximum: 10,
-            minimum: 0,
-            step: 1
-        }
         this.setState({
             count: 0,
             isDecreaseButtonDisabled: true,
             isIncreaseButtonDisabled: false,
-            settings: {
-                maximum: -1,
-            }
+            maximum: Number(localStorage.getItem('maximum')) || 10,
+            minimum: Number(localStorage.getItem('minimum')),
+            step: Number(localStorage.getItem('step')) || 1
         })
     }
 
     setMaximum = (event) => {
-        this.Settings.maximum = Number(event.target.value);
+        localStorage.setItem('maximum', event.target.value);
     }
 
     setMinimum = (event) => {
-        this.Settings.minimum = Number(event.target.value);
+        localStorage.setItem('minimum', event.target.value);
     }
 
     setStep = (event) => {
-        this.Settings.step = Number(event.target.value);
+        localStorage.setItem('step', event.target.value);
     }
 
     setSettings = () => {
-        const { minimum, maximum, step } = this.Settings;
         this.setState({
-            count: minimum,
-            minimum,
-            maximum,
-            step,
+            count: Number(localStorage.getItem('minimum')),
+            minimum: Number(localStorage.getItem('minimum')),
+            maximum: Number(localStorage.getItem('maximum')),
+            step: Number(localStorage.getItem('step')),
             isDecreaseButtonDisabled: true,
             isIncreaseButtonDisabled: false,
         })
