@@ -8,7 +8,7 @@ class InputStep extends Component {
         return (
             <div className={'input-piece'}>
                 <label htmlFor="step">Step</label>
-                <input id='step' placeholder = 'set step...'
+                <input defaultValue={ localStorage.getItem('step') || '' } id='step' placeholder = 'set step...'
                        onChange ={ e => setStep(e) }
                        type="number"/>
             </div>
